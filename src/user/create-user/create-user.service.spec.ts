@@ -39,8 +39,8 @@ describe('CreateUserService', () => {
 
     it('should return an BadRequest Exception when send user1 ', async () => {
         try {
-            await service.create({ username: 'user1', password: 'password' })
-            await service.create({ username: 'user1', password: 'password' })
+            await service.create({ email: 'user1@email.com', password: 'password' })
+            await service.create({ email: 'user1@email.com', password: 'password' })
         } catch (error) {
             expect(error).toBeInstanceOf(BadRequestException);
             expect(error?.getResponse()).toEqual({ error: 'Bad Request', message: ['user exist'] })
@@ -50,13 +50,13 @@ describe('CreateUserService', () => {
 
     it('should return an object that match with class CreateUserResponseDto ', async () => {
 
-        const response = await service.create({ username: 'user', password: 'password' })
+        const response = await service.create({ email: 'user2@email.com', password: 'password' })
         expect(response).toBeInstanceOf(CreateUserResponseDto);
         expect(response._id).toBeDefined();
         expect(response.rol).toBeDefined();
         expect(response.rol).toEqual('vendor');
-        expect(response.username).toBeDefined();
-        expect(response.username).toEqual('user');
+        expect(response.email).toBeDefined();
+        expect(response.email).toEqual('user2@email.com');
         expect(response.password).toBeDefined();
     })
 });

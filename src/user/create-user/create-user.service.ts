@@ -12,16 +12,16 @@ export class CreateUserService {
         @InjectModel(User.name) private readonly userModel: Model<UserDocument>
     ) {}
 
-    async create ({username, password}: CreateUserDto):Promise<CreateUserResponseDto> {
+    async create ({email, password}: CreateUserDto):Promise<CreateUserResponseDto> {
         try {
-            if (await this.userModel.exists({username}) === true) {
+            if (await this.userModel.exists({email}) === true) {
                 throw new BadRequestException({
                     "error": "Bad Request",
                     "message": ["user exist"]
                 })
             }
             
-            const user = await this.userModel.create({username, password});
+            const user = await this.userModel.create({email, password});
             return new CreateUserResponseDto(JSON.parse(JSON.stringify(user)));
         } catch (error) {
             throw error

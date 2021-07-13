@@ -10,7 +10,7 @@ export enum USER_ROLES {
 export class User {
 
     @Prop({type: String, unique: true, trim: true, lowercase:true, index: true })
-    username: string;
+    email: string;
 
     @Prop({type: String})
     password: string;

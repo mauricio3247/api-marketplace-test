@@ -3,7 +3,7 @@ import { Exclude, Expose } from 'class-transformer'
 export class CreateUserResponseDto {
 
 
-    username: string
+    email: string
     rol: string
 
     @Exclude()
