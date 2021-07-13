@@ -1,15 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserResponseDto } from '../dtos/create-user-response.dto';
-import { CreateUserDto } from '../dtos/create-user.dto';
+import { CreateUserDto } from '../../dtos/create-user.dto';
 import { User, UserDocument } from '../user.schema';
 
 @Injectable()
 export class CreateUserService {
 
     constructor (
-        @InjectModel(User.name) private readonly userModel: Model<UserDocument>
+        @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+        @Inject('HELPER_HASH') private readonly helperHash: Function,
     ) {}
 
     async create ({email, password}: CreateUserDto):Promise<CreateUserResponseDto> {
@@ -21,7 +22,7 @@ export class CreateUserService {
                 })
             }
             
-            const user = await this.userModel.create({email, password});
+            const user = await this.userModel.create({email, password: await this.helperHash(password)});
             return new CreateUserResponseDto(JSON.parse(JSON.stringify(user)));
         } catch (error) {
             throw error

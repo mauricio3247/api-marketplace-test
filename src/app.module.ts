@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -18,7 +19,8 @@ import configuration from './config/configuration';
                 uri: configService.get<string>('db_mongo_connection')
             }),
             inject: [ConfigService],
-        })
+        }),
+        AuthModule
     ],
     controllers: [AppController],
     providers: [AppService],
