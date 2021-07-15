@@ -2,12 +2,7 @@ import { Prop, SchemaFactory, Schema } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 import { User } from "../user/user.schema";
 
-
-
-
 export type ProductDocument =  mongoose.Document & Product;
-
-
 
 @Schema()
 export class Product {

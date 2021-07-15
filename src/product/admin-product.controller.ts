@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, ValidationPipe, Query, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, ValidationPipe, Query, ParseIntPipe, Param } from '@nestjs/common';
 import { RolesUserGuard } from '../auth/auth-jwt-roles-user.guard';
 import { RolesUserAuth } from '../auth/decorators/roles.user.decorator';
 import { USER_ROLES } from '../user/user.schema';
@@ -20,5 +20,16 @@ export class AdminProductController {
         @Query('limit', ParseIntPipe) limit: number
     ) {
         return this.getProductListService.getListAllProducts( page, limit);
+    }
+
+    @Get(':id')
+    @RolesUserAuth(USER_ROLES.ADMIN)
+    @UseGuards(JwtUserAuthGuard, RolesUserGuard)
+    getProductListByUserId (
+        @Param('id') id: string,
+        @Query('page', ParseIntPipe) page: number,
+        @Query('limit', ParseIntPipe) limit: number
+    ) {
+        return this.getProductListService.getListProducts(id, page, limit);
     }
 }

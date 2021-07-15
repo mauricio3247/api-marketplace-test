@@ -17,7 +17,4 @@ export class GetProductListService {
         return (this.productModel as any).paginate({}, {page, limit})
     }
 
-
-
-
 }

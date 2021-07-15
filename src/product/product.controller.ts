@@ -8,6 +8,7 @@ import { PayloadAuthInterface } from '../auth/payload-auth.interface';
 import { CreateProductService } from './create-product/create-product.service';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { GetProductListService } from './get-product-list/get-product-list.service';
+import { ProductFilterService } from './product-filter/product-filter.service';
 
 @Controller('product')
 export class ProductController {
@@ -15,6 +16,7 @@ export class ProductController {
     constructor (
         private readonly createProductService: CreateProductService,
         private readonly getProductListService: GetProductListService,
+        private readonly productFilterService: ProductFilterService,
     ){}
 
     
@@ -36,5 +38,15 @@ export class ProductController {
         @Query('limit', ParseIntPipe) limit: number
     ) {
         return this.getProductListService.getListProducts(payload.id, page, limit);
+    }
+
+    @Get('filter')
+    getFilteredProducts (
+        @Query('name') name: string,
+        @Query('sku') sku: string,
+        @Query('priceMin') priceMin: number,
+        @Query('priceMax') priceMax: number
+    ) {
+        return this.productFilterService.getListProducts(name, sku, priceMin, priceMax);
     }
 }

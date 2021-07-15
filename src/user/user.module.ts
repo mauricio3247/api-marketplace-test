@@ -7,6 +7,7 @@ import { UserFindEmailService } from './user-find-email/user-find-email.service'
 import { AdminUserCreateService } from './admin-user-create/admin-user-create.service';
 import helperHash from '../helpers/hash';
 import { ConfigModule } from '@nestjs/config';
+import { UserListService } from './user-list/user-list.service';
 @Module({
     imports: [
         ConfigModule,
@@ -17,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
         helperHash,
         UserFindEmailService,
         AdminUserCreateService,
+        UserListService,
     ],
     controllers: [UserController],
     exports: [CreateUserService, UserFindEmailService, AdminUserCreateService],

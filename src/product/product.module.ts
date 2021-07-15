@@ -5,6 +5,7 @@ import { Product, productSchema } from './product.schema';
 import { ProductController } from './product.controller';
 import { GetProductListService } from './get-product-list/get-product-list.service';
 import { AdminProductController } from './admin-product.controller';
+import { ProductFilterService } from './product-filter/product-filter.service';
 
 @Module({
     imports: [
@@ -19,7 +20,7 @@ import { AdminProductController } from './admin-product.controller';
             },
           ]),
     ],
-  providers: [CreateProductService, GetProductListService],
+  providers: [CreateProductService, GetProductListService, ProductFilterService],
   controllers: [ProductController, AdminProductController]
 })
 export class ProductModule {}
