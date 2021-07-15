@@ -10,6 +10,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const adminUserCreate = app.get(AdminUserCreateService);
   await adminUserCreate.adminCreate();
-  await app.listen(configService.get<string>('port') || 3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
